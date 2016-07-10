@@ -1,0 +1,6 @@
+<ul class="ect-diaplay-box text-center">
+  <li class="ect-box-flex {if CONTROLLER_NAME == 'Index'} selected {/if}" ><a href="{:url('index/index')}"><i class="coupon-home"></i><span>首页</span></a></li>
+  <li class="ect-box-flex {if CONTROLLER_NAME == 'Coupon'} selected {/if}"><a href="{:url('coupon/index')}"><i class="coupon-buy"></i><span>购卡</span></a></li>
+  <li class="ect-box-flex {if CONTROLLER_NAME == 'Couponorder'} selected {/if}"><a href="{:url('couponorder/index')}"><i class="coupon-card"></i><span>卡包</span></a></li>
+  <li class="ect-box-flex {if CONTROLLER_NAME == 'Usercenter'} selected {/if}"><a href="{:url('usercenter/index')}"><i class="coupon-me"></i><span>我的</span></a></li>
+</ul>

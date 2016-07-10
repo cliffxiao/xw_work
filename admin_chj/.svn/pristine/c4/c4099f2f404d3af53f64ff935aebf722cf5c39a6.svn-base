@@ -1,0 +1,147 @@
+<!-- $Id: agency_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="validator.js,../js/transport.js,../js/region.js"}
+<script type="text/javascript">
+region.isAdmin=true;
+</script>
+<div class="main-div">
+<form method="post" action="organize.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">{$lang.label_organize_name}</td>
+    <td><input type="text" name="organize_name" maxlength="60" value="{$organize.organize_name}" size="34" />{$lang.require_field}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_organize_desc}</td>
+    <td><textarea  name="organize_desc" cols="60" rows="4"  >{$organize.organize_desc}</textarea>{$lang.require_field}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_organize_area}</td>
+    <td><select name="country" id="selCountries" onChange="region.changed(this, 1, 'selProvinces')">
+        <option value="0" selected="true">{$lang.select_please}</option>
+        {foreach from=$country_list item=country}
+        <option value="{$country.region_id}" {if $organize.country eq $country.region_id}selected{/if}>{$country.region_name}</option>
+        {/foreach}
+      </select> <select name="province" id="selProvinces" onChange="region.changed(this, 2, 'selCities')">
+        <option value="0">{$lang.select_please}</option>
+        {foreach from=$province_list item=province}
+        <option value="{$province.region_id}" {if $organize.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+        {/foreach}
+      </select> <select name="city" id="selCities" onchange="region.changed(this, 3, 'selDistricts')">
+          <option value="0">{$lang.select_please}</option>
+          <!-- {foreach from=$city_list item=city} -->
+          <option value="{$city.region_id}" {if $organize.city eq $city.region_id}selected{/if}>{$city.region_name}</option>
+          <!-- {/foreach} -->
+        </select>
+        <select name="district" id="selDistricts">
+          <option value="0">{$lang.select_please}</option>
+          <!-- {foreach from=$district_list item=district} -->
+          <option value="{$district.region_id}" {if $organize.district eq $district.region_id}selected{/if}>{$district.region_name}</option>
+          <!-- {/foreach} -->
+        </select>
+        {$lang.require_field}</td>
+  </tr> 
+  <tr>
+    <td class="label">{$lang.label_organize_address}</td>
+    <td><input type="text" name="organize_address" maxlength="255" value="{$organize.organize_address}" size="34" />{$lang.require_field}</td>
+  </tr>  
+  <tr>
+    <td class="label">{$lang.label_organize_contacts}</td>
+    <td><input type="text" name="contacts" maxlength="30" value="{$organize.contacts}" size="34" />{$lang.require_field}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_organize_phone}</td>
+    <td><input type="text" name="phone" maxlength="15" value="{$organize.phone}" size="34" />{$lang.require_field}</td>
+  </tr>    
+  <tr>
+    <td class="label">{$lang.label_organize_mobile}</td>
+    <td><input type="text" name="mobile" maxlength="11" value="{$organize.mobile}" size="34" />{$lang.require_field}</td>
+  </tr>  
+  <tr>
+    <td class="label">{$lang.label_organize_email}</td>
+    <td><input type="text" name="email" maxlength="30" value="{$organize.email}" size="34" />{$lang.require_field}</td>
+  </tr>   
+  <tr>
+    <td class="label">{$lang.label_organize_fax}</td>
+    <td><input type="text" name="fax" maxlength="15" value="{$organize.fax}" size="34" /></td>
+  </tr>   
+  <tr>
+    <td class="label">{$lang.label_organize_remark}</td>
+    <td><textarea  name="remark" maxlength="100" cols="60" rows="4"  >{$organize.remark}</textarea></td>
+  </tr>   
+  <tr>
+    <td class="label">{$lang.label_is_check}</td>
+    <td>{html_radios name="is_check" options=$lang.is_check checked=$organize.is_check }</td>
+  </tr>  
+  {if $organize.admin_list}      
+  <tr>
+    <td class="label">
+    <a href="javascript:showNotice('noticeAdmins');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.label_admins}</td>
+    <td>{foreach from=$organize.admin_list item=admin}
+      <input type="checkbox" name="admins[]" value="{$admin.user_id}" {if $admin.type eq "this"}checked="checked"{/if} />
+      {$admin.user_name}{if $admin.type eq "other"}<font color="red">(*)</font>{/if}&nbsp;&nbsp;
+    {/foreach}<br />
+    <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeAdmins">{$lang.notice_admins}</span></td>
+  </tr>
+  {/if}
+</table>
+
+<table align="center">
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="id" value="{$organize.organize_id}" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+document.forms['theForm'].elements['organize_name'].focus();
+
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.isSelect = function (controlId, msg)
+    {
+      var obj = document.forms[this.formName].elements[controlId];
+      if (obj.value <= 0 || ! Utils.isInt(obj.value))
+      {
+        this.addErrorMsg(msg);
+      }
+    }
+    validator.required("organize_name",  no_organize_name);
+    validator.required("organize_desc",  no_organize_desc);
+    validator.required("organize_address",  no_organize_address);
+    validator.required("contacts",  no_organize_contacts);
+    validator.required("phone",  no_organize_phone);
+    validator.isTel("phone",  no_organize_rule_phone);
+    validator.required("mobile",  no_organize_mobile);
+    validator.isMobile("mobile", no_organize_rule_mobile);
+    validator.required("email",  no_organize_email);
+    validator.isEmail("email",  no_organize_rule_email);
+    validator.maxLength("remark",  remark_maxlength_error);
+    validator.maxLength("email", email_maxlength_error);
+    validator.isSelect("country",  pls_select_area);
+    validator.isSelect("province",  pls_select_area);
+    validator.isSelect("district",  pls_select_area);
+    validator.isSelect("city",  pls_select_area);
+    return validator.passed();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

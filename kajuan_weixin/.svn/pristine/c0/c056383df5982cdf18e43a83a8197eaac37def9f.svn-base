@@ -1,0 +1,47 @@
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<div class="con">
+
+    <div class="coupon-pay-container">
+
+        <div class="coupon-pay-header">
+            <h4>{$card_info.cat_name}</h4>
+            <h3>余额: {:price_format($this->_var['card_info']['card_balance'], false)}</h3>
+        </div>
+
+        <div class="coupon-pay-seperator"></div>
+
+        <div class="coupon-pay-content">
+
+            <img class="imagetop" src="barcode/?text={$smarty.session.code}">
+            <img class="imagebottom" src="{:url('couponorder/qrcode')}">
+            <h5>{$code}</h5>
+            <h4>
+                <img src="images/icon-refresh.png">
+                支付码每分钟自动更新
+            </h4>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script language="JavaScript">
+
+    setTimeout(function () {
+        window.location.reload();
+    }, 60000);
+
+    setInterval(function () {
+        var url = "{:url('couponorder/ajax_notify', array('id'=>md5('hemaquan.com'.$this->_var['card_info']['card_sn'].'hemaquan.com')))}";
+        $.get(url, '', function (data) {
+            if(data.result == 1){
+                window.location.href = data.url;
+            }
+        }, "json");
+    }, 2000);
+
+</script>

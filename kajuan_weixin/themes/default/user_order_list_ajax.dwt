@@ -1,0 +1,80 @@
+       {if $status == 1}
+        <div class="user-order-list-header text-center">
+            {if $count > 0}
+            共有 {$count} 笔订单未付款,合计金额 {:price_format($this->_var['total_fee'], false)}
+            {else}您暂时没有订单{/if}
+        </div>
+        {/if}
+            <!-- 待付款类型订单 -->
+            <!--{foreach from=$orders_list item=order name=no}--> 
+            <li class="item order-list-item">
+                <span class="item-id">订单编号: {$order.order_sn}</span>
+                <span class="item-status">{if $order.order_status == OS_CANCELED}买家已关闭{elseif $order.pay_status == PS_UNPAYED}等待买家付款{elseif $order.pay_status == PS_PAYING}买家付款中{elseif $order.pay_status == PS_PAYED}买家已付款{/if}</span>
+                <span class="item-name">{$order.goods_info.goods_name}</span>
+                <span class="item-price">面额 {:price_format($this->_var['order']['goods_info']['market_price'])}</span>
+                <span class="item-number">x {$order.goods_info.goods_number}</span>
+                <span class="item-date">{:date('Y-m-d H:i', $this->_var['order']['add_time'])}</span>
+                <hr/>
+                <span class="item-total-label">合计: </span>
+                <span class="item-total">{:price_format($this->_var['order']['total_fee'], false)}</span>
+                {if $order.order_status != OS_CANCELED && $order.pay_status == PS_UNPAYED}
+                <a class="item-btn item-btn-pay" href="javascript:$('#id_{$order.order_sn}').submit();">付款 </a>
+                <a class="item-btn item-btn-cancel" href="javascript:cancel_order({$order.order_id});">取消订单</a>
+                <form method="post" action="payment/weixin/example/jsapi.php" id="id_{$order.order_sn}">
+                    <input type="hidden" value="" name="orderid" id="orderid" value="{$order.order_sn} "/>
+                </form>                
+                {/if}
+            </li>
+            <!--{/foreach}-->
+            {if $pager.page_next}
+            <input type="hidden" value="{$pager.page_next}" id="page_next" />{else}{if $status == 1 && $count <= 0}{else}<div class="user-order-list-footer">您没有订单了</div>{/if}{/if}
+
+           <!--
+           <li>
+               <a href="{:url('couponorder/info')}" class="item-top-menu background-red">
+                   <img src="images/kailiantong.png">
+                   <dt>开联通电子电子礼品卡</dt>
+                   <dt>有效期至: <span>2017年06月30日</span></dt>
+               </a>
+               <dl class="item-bottom-menu">
+                   <dt class="left">余额: <span>¥100.00</span></dt>
+                   <a class="right" href="{:url('couponorder/tradetail')}">查询交易明细<i class="glyphicon glyphicon-chevron-right"></i></a>
+               </dl>
+           </li>
+
+           <li>
+               <a href="{:url('couponorder/info')}" class="item-top-menu background-blue">
+                   <img src="images/woerma.png">
+                   <dt>沃尔玛电子礼品卡</dt>
+                   <dt>有效期至: <span>2017年06月30日</span></dt>
+               </a>
+               <dl class="item-bottom-menu">
+                   <dt class="left">余额: <span>¥50.00</span></dt>
+                   <a class="right" href="{:url('couponorder/tradetail')}">查询交易明细<i class="glyphicon glyphicon-chevron-right"></i></a>
+               </dl>
+           </li>
+
+           <li>
+               <a href="{:url('couponorder/info')}" class="item-top-menu background-deepblue">
+                   <img src="images/shijilianhua.png">
+                   <dt>世纪联华电子礼品卡</dt>
+                   <dt>有效期至: <span>2017年06月30日</span></dt>
+               </a>
+               <dl class="item-bottom-menu">
+                   <dt class="left">余额: <span>¥50.00</span></dt>
+                   <a class="right" href="{:url('couponorder/tradetail')}">查询交易明细<i class="glyphicon glyphicon-chevron-right"></i></a>
+               </dl>
+           </li>
+
+           <li>
+               <a href="{:url('couponorder/info')}" class="item-top-menu background-gray">
+                   <img src="images/shijilianhua.png">
+                   <dt>沃尔玛电子礼品卡</dt>
+                   <dt>有效期至: <span>2017年06月30日</span></dt>
+               </a>
+               <dl class="item-bottom-menu">
+                   <dt class="left">余额: <span class="disabled">¥50.00</span></dt>
+                   <a class="right" href="{:url('couponorder/tradetail')}">查询交易明细<i class="glyphicon glyphicon-chevron-right"></i></a>
+               </dl>
+           </li>
+           -->

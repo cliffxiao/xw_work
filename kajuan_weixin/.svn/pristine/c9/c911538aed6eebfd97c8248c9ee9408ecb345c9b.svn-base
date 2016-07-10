@@ -1,0 +1,253 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+
+    <!-- 卡券图片 -->
+    <div class="coupon-detail-index">
+        <img src="themes/default/images/coupon_detail_index.png" />
+    </div>
+
+    <!-- 卡券说明 -->
+    <div class="coupon-detail-desc">
+        <p class="coupon-detail-title">
+            {$page_title}
+            <a href="{:url('couponorder/buydesc')}">
+                <img src="images/arrow-circle-right.png">
+                <span>&nbsp;购卡说明&nbsp;</span>
+                <img src="images/warning.png">
+            </a>
+        </p>
+        <p>[使用范围] 全国通用</p>
+    </div>
+
+    <!-- 卡券价格区间 -->
+    <div class="coupon-detail-list">
+        <p>
+            礼品卡面值（最低{$goodslist[0].market_price}元）
+        </p>
+        <ul>
+            <!--{foreach from=$goodslist item=goods key=key}-->
+            <li {if $goods.is_first==1}class="cur"{/if} {if $goods.goods_number==0}class="li-empty"{/if} onclick="setPrice(this,{$goods.id},{$goods.goods_sn},{$goods.goods_number},{$goods.shop_price},{$goods.market_price});">{$goods.market_price}元</li>
+            <!--{/foreach}-->
+        </ul>
+    </div>
+
+    <!-- 卡券购买数量 -->
+    <div class="coupon-detail-num">
+        <span>购买数量</span>
+        <div class="input-group wrap">
+            <form action="" method="post" name="ECS_FORMBUY" id="ECS_FORMBUY" >
+                <span class="input-group-addon sup btndisabled" onclick="changePrice('1')" id="do_sup_id">-</span>
+                <input type="number" class="form-contro form-num" name="number" id="goods_number" autocomplete="off" value="1" onfocus="back_goods_number()" onblur="changePrice('2')" onkeyup="numberkeyup($(this),value);">
+                <span class="input-group-addon plus" onclick="changePrice('3')" id="do_plus_id">+</span>
+            </form>
+        </div>
+    </div>
+
+    <hr class="coupon-detail-hr"/>
+
+    <!-- 卡券折扣 -->
+    <div class="coupon-detail-dis">
+        <div>折扣率<span>{$zhekou}折</span></div>
+    </div>
+
+    <!-- 电子券章程 -->
+    <div class="coupon-detail-rule">
+
+        <input id="confirmcheck" type="checkbox" checked>
+        <label for="confirmcheck">我已阅读并同意</label>
+        <a href="{:url('couponorder/tecrule')}">
+            <span>《电子卡章程》</span>
+        </a>
+
+    </div>
+
+</div>
+
+<!-- 立即支付 -->
+<div class="coupon-detail-pay">
+
+	<span>¥{$default_shop_price}</span>
+    <del>¥{$default_market_price}</del>
+
+	<form method="post" action="payment/weixin/example/jsapi.php" id="suborder">
+        <input type="hidden" value="" name="orderid" id="orderid" />
+        <input type="hidden" value="{$default_goods_id}" name="goodsid" id="goodsid" />
+        <input type="hidden" value="{$default_goods_sn}" name="goodssn" id="goodssn" />
+        <input id="suborderbtn" class="btn" type="button" onclick="suborder();" value="立即支付" />
+	</form>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+
+<script type="text/javascript">
+
+    /**
+     * 提交订单
+     */
+    function suborder(){
+
+        //是否勾选同意电子卡章程
+        if($("#confirmcheck").is(':checked')){
+
+            var goodsid = $("#goodsid").val();
+            var goods_number = $("#goods_number").val();
+            $.ajax({
+                url: "index.php?m=default&c=order&a=create&goodsid="+goodsid+"&goods_number="+goods_number,
+                type: 'POST',
+                async: false,
+                dataType: 'json',
+                timeout: 5000,
+                beforeSend: function () {
+                    // 禁用按钮防止重复提交
+                    //$("#suborderbtn").attr({disabled:"disabled"});
+                    progress.show();
+                },
+                success: function(res){
+                    progress.hide();
+                    if(res.code=="1"){
+                        $("#orderid").val(res.order_sn);
+                        $("#suborder").submit();
+                    }else{
+                        confirm.show(res.msg, function () {
+                            //刷新页面
+                            window.location.reload();
+                        });
+                    }
+                },error: function(){
+
+                }
+            });
+        }
+        else{
+
+            indicator.show("请同意电子卡章程!");
+        }
+    }
+    
+    function numberkeyup(e, pnumber){
+    	if(!/^\d+$/.test(pnumber)){
+	   		$(e).val(/^\d+/.exec($(e).val()));
+	   		return false;
+   		}
+    	var cur_number = $("#goods_number").val();
+    	if(cur_number>10){
+    		indicator.show("单次最多购买10张");
+    		$("#goods_number").val("10");
+    		$("#do_plus_id").addClass("btndisabled");
+    	}else{
+            if($("#do_plus_id").hasClass("btndisabled")){
+                $("#do_plus_id").removeClass("btndisabled");
+            }
+        }
+    }
+
+    function back_goods_number(){
+        var goods_number = document.getElementById('goods_number').value;
+        document.getElementById('back_number').value = goods_number;
+    }
+
+    function setPrice(e,id,sku,goods_number,shop_price,market_price){
+        if(goods_number>0){
+            $(".coupon-detail-list ul li").removeClass("cur");
+            $(e).addClass("cur");
+            $("#goods_number").val("1");
+            $("#do_sup_id").addClass("btndisabled");
+            $("#do_plus_id").removeClass("btndisabled");
+            var num = $("#goods_number").val();
+            var total_market_price = num*parseInt(market_price);
+            var total_shop_price = num*parseInt(shop_price);
+            var zhekou = (shop_price/market_price)*100;
+            $(".coupon-detail-dis span").empty();
+            $(".coupon-detail-pay span").empty();
+            $(".coupon-detail-pay del").empty();
+            $(".coupon-detail-dis span").html(zhekou+"折");
+            $(".coupon-detail-pay span").html("¥"+total_shop_price);
+            $(".coupon-detail-pay del").html("¥"+total_market_price);
+            $("#goodsid").val(id);
+            $("#goodssn").val(sku);
+        }
+    }
+
+    /**
+     * 点选可选属性或改变数量时修改商品价格的函数
+     */
+    function changePrice(type){
+        var goodsId = $("#goodsid").val();
+        var qty = document.forms['ECS_FORMBUY'].elements['number'].value;
+
+        if(type == 1){qty--;}
+        if(type == 3){qty++; }
+        if(qty <=0 ){ qty=1; }
+        if(qty >=10 ){ qty=10;indicator.show("单次最多购买10张"); }
+
+        //数量等于1时样式禁用
+        if(qty == 1){
+            $("#do_sup_id").addClass("btndisabled");
+        }else{
+            if($("#do_sup_id").hasClass("btndisabled")){
+                $("#do_sup_id").removeClass("btndisabled");
+            }
+        }
+        
+      	//数量等于10时样式禁用
+        if(qty >= 10){
+            $("#do_plus_id").addClass("btndisabled");
+        }else{
+            if($("#do_plus_id").hasClass("btndisabled")){
+                $("#do_plus_id").removeClass("btndisabled");
+            }
+        }
+
+        if(!/^[0-9]*$/.test(qty)){ qty = document.getElementById('back_number').value; }
+        document.getElementById('goods_number').value = qty;
+        //var attr = getSelectedAttributes(document.forms['ECS_FORMBUY']);
+        $.get('{:url("coupon/detail")}', {'id':goodsId,'number':qty}, function(data){
+            changePriceResponse(data);
+        }, 'json');
+    }
+
+    /**
+     * 接收返回的信息
+     */
+    function changePriceResponse(res){
+    	if(res.code == 1){
+    		$("#do_plus_id").addClass("btndisabled");
+    		indicator.show("库存剩余"+res.number+"张");
+    	}else if (res.err_msg.length > 0){
+        	$("#do_plus_id").addClass("btndisabled");
+        	indicator.show(res.err_msg);
+            document.getElementById('goods_number').value = res.sub_number-1;
+        }else {
+        	if(res.sub_number<10){
+        		if($("#do_plus_id").hasClass("btndisabled")){
+                    $("#do_plus_id").removeClass("btndisabled");
+                }
+        	}
+            $(".coupon-detail-pay span").empty();
+            $(".coupon-detail-pay del").empty();
+            $(".coupon-detail-pay span").html("¥"+res.shop_price);
+            $(".coupon-detail-pay del").html("¥"+res.market_price);
+        }
+    }
+    function toDecimal2(x) {    
+        var f = parseFloat(x);    
+        if (isNaN(f)) {    
+            return false;    
+        }    
+        var f = Math.round(x*100)/100;    
+        var s = f.toString();    
+        var rs = s.indexOf('.');    
+        if (rs < 0) {    
+            rs = s.length;    
+            s += '.';    
+        }    
+        while (s.length <= rs + 2) {    
+            s += '0';    
+        }    
+        return s;    
+    } 
+</script>
+
+</body></html>

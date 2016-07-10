@@ -1,0 +1,147 @@
+集成时请注意：
+本文件log.txt请不要删除。
+该文本用于写日志函数。
+执行日期：20150914100222
+fail
+执行日期：20150914100232
+fail
+执行日期：20150914100234
+fail
+执行日期：20150914102658
+fail
+执行日期：20150914102935
+TRADE_SUCCESS
+执行日期：20150914103431
+TRADE_SUCCESS
+执行日期：20150914103431
+update vehsy_product_order set pay_status=1 where orderid='S1442198061851'
+执行日期：20150914104153
+TRADE_SUCCESS
+执行日期：20150914104153
+update vehsy_product_order set pay_status=1, trade_no=2015091400001000770061917362 where orderid='S1442198482456'
+执行日期：20150914104651
+TRADE_SUCCESS
+执行日期：20150914104651
+update vehsy_product_order set pay_status=1, trade_no=2015091400001000770061917587 where orderid='S1442198800368'
+执行日期：20150922102353
+TRADE_SUCCESS
+执行日期：20150922102353
+update vehsy_product_order set pay_status=1, trade_no=2015092200001000770062197106 where orderid='S1442888510404'
+执行日期：20150922103954
+TRADE_SUCCESS
+执行日期：20150922103954
+update vehsy_product_order set pay_status=1, trade_no=2015092200001000770062197628 where orderid='S1442889576014'
+执行日期：20150923143230
+TRADE_SUCCESS
+执行日期：20150923143230
+update vehsy_product_order set pay_status=1, trade_no=2015092300001000770062236284 where orderid='S1442989887970'
+执行日期：20150923145912
+TRADE_SUCCESS
+执行日期：20150923145912
+update vehsy_product_order set pay_status=1, trade_no=2015092300001000770062237031 where orderid='S1442991538908'
+执行日期：20150923151915
+TRADE_SUCCESS
+执行日期：20150923151915
+update vehsy_product_order set pay_status=1, trade_no=2015092300001000770062237637 where orderid='S1442992710482'
+执行日期：20150923152727
+TRADE_SUCCESS
+执行日期：20150923152727
+update vehsy_product_order set pay_status=1, trade_no=2015092300001000770062237846 where orderid='S1442993224173'
+执行日期：20150923161929
+TRADE_SUCCESS
+执行日期：20150923161929
+update vehsy_product_order set pay_status=1, trade_no=2015092300001000770062239417 where orderid='S1442996314505'
+执行日期：20150923162710
+TRADE_SUCCESS
+执行日期：20150923162710
+update vehsy_product_order set pay_status=1, trade_no=2015092300001000770062239623 where orderid='S1442996808623'
+执行日期：20150924095022
+TRADE_SUCCESS
+执行日期：20150924095022
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062259507 where orderid='S1443059356527'
+执行日期：20150924095354
+TRADE_SUCCESS
+执行日期：20150924095354
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062259619 where orderid='S1443059622991'
+执行日期：20150924101420
+TRADE_SUCCESS
+执行日期：20150924101420
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062260331 where orderid='S1443060814092'
+执行日期：20150924101947
+TRADE_SUCCESS
+执行日期：20150924101947
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062260532 where orderid='S1443061176500'
+执行日期：20150924105039
+TRADE_SUCCESS
+执行日期：20150924105039
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062261514 where orderid='S1443063027088'
+执行日期：20150924105604
+TRADE_SUCCESS
+执行日期：20150924105604
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062261700 where orderid='S1443063353070'
+执行日期：20150924143704
+TRADE_SUCCESS
+执行日期：20150924143704
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062269089 where orderid='S1443076579937'
+执行日期：20150924144238
+TRADE_SUCCESS
+执行日期：20150924144238
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062269253 where orderid='S1443076944059'
+执行日期：20150924145421
+TRADE_SUCCESS
+执行日期：20150924145421
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062269539 where orderid='S1443077495268'
+执行日期：20150924151423
+TRADE_SUCCESS
+执行日期：20150924151423
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062270254 where orderid='S1443078848236'
+执行日期：20150924161408
+TRADE_SUCCESS
+执行日期：20150924161408
+update vehsy_product_order set pay_status=1, trade_no=2015092400001000770062272210 where orderid='S1443082279024'
+执行日期：20151017150407
+TRADE_FINISHED
+执行日期：20151017151207
+TRADE_FINISHED
+执行日期：20151020100109
+TRADE_FINISHED
+执行日期：20151021142720
+TRADE_SUCCESS
+执行日期：20151021142720
+update vehsy_product_order set pay_status=1, trade_no=2015102100001000770063097128 where orderid='S1445408825953'
+执行日期：20151021145024
+TRADE_SUCCESS
+执行日期：20151021145024
+update vehsy_product_order set pay_status=1, trade_no=2015102100001000770063097771 where orderid='S1445410156904'
+执行日期：20151021194711
+TRADE_FINISHED
+执行日期：20151021201311
+TRADE_FINISHED
+执行日期：20151021202711
+TRADE_FINISHED
+执行日期：20151022194921
+TRADE_SUCCESS
+执行日期：20151022194921
+update vehsy_product_order set pay_status=1, trade_no=2015102200001000050066333225 where orderid='2015070603337214'
+执行日期：20151022195119
+TRADE_SUCCESS
+执行日期：20151022195119
+update vehsy_product_order set pay_status=1, trade_no=2015102200001000050066333341 where orderid='2015070603337215'
+执行日期：20151022195329
+TRADE_SUCCESS
+执行日期：20151022195329
+update vehsy_product_order set pay_status=1, trade_no=2015102200001000050066333225 where orderid='2015070603337214'
+执行日期：20151022195402
+验证失败，
+执行日期：20151022195403
+验证失败，
+执行日期：20151022195421
+TRADE_SUCCESS
+执行日期：20151022195421
+update vehsy_product_order set pay_status=1, trade_no=2015102200001000050066333513 where orderid='2015070603337216'
+执行日期：20151022195706
+TRADE_SUCCESS
+执行日期：20151022195706
+update vehsy_product_order set pay_status=1, trade_no=2015102200001000050066333676 where orderid='2015070603337217'
+执行日期：20151022195707
+付款成功，

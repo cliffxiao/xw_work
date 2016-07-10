@@ -1,0 +1,78 @@
+    <!--{foreach from=$card_list item=card name=no}-->
+    <li>
+        <a href="{if $status == 1 || $status == 2}{if isset($smarty.get.pay_info)}{:url('couponorder/pay', array('id'=>$this->_var['card']['card_id']))}{else}{:url('couponorder/info', array('id'=>$this->_var['card']['card_id']))}{/if}{else}javascript:void(0);{/if}" class="item-top-menu background-{if $status == 3 || $status == 4 || $status == 5}gray{else}red{/if}">
+            <img src="images/kailiantong.png">
+            {if $smarty.get.pay_info == 1}
+            <dt class="coupon-pay-dt">{$card.cat_name}</dt>
+        </a>
+        <dl class="item-bottom-menu">
+            <dt class="left">余额: <span class="{if $status == 3 || $status == 4 || $status == 5}disabled{/if}">{if $status == 2}{:price_format($this->_var['card']['card_amount'], false)}{else}{:price_format($this->_var['card_balance'][$this->_var['card']['card_sn']], false)}{/if}</span></dt>
+            <dt class="right">有效期至: {:date('Y年m月d日', $this->_var['card']['end_date'])}</dt>
+        </dl>
+        {else}
+        <dt>{$card.cat_name}</dt>
+        <dt>有效期至: <span>{:date('Y年m月d日', $this->_var['card']['end_date'])}</span></dt>
+        </a>
+        <dl class="item-bottom-menu">
+            <dt class="left">余额: <span class="{if $status == 3 || $status == 4 || $status == 5}disabled{/if}">{if $status == 2}{:price_format($this->_var['card']['card_amount'], false)}{else}{:price_format($this->_var['card_balance'][$this->_var['card']['card_sn']], false)}{/if}</span></dt>
+            <a class="right" href="{if $status == 2 || $status == 3}javascript:void(0);{else}{:url('couponorder/tradetail', array('id'=>$this->_var['card']['card_id']))}{/if}">
+                查询交易明细
+                <img src="images/arrow-right.png">
+            </a>
+        </dl>
+        {/if}
+    </li>
+
+    <!--{/foreach}-->
+    {if $pager}
+    <input type="hidden" value="{$pager.page_next}" id="page_next" />{/if}
+
+    <!--
+    <li>
+        <a href="{:url('couponorder/info')}" class="item-top-menu background-red">
+            <img src="images/kailiantong.png">
+            <dt>开联通电子电子礼品卡</dt>
+            <dt>有效期至: <span>2017年06月30日</span></dt>
+        </a>
+        <dl class="item-bottom-menu">
+            <dt class="left">余额: <span>¥100.00</span></dt>
+            <a class="right" href="{:url('couponorder/tradetail')}">查询交易明细<i class="glyphicon glyphicon-chevron-right"></i></a>
+        </dl>
+    </li>
+
+    <li>
+        <a href="{:url('couponorder/info')}" class="item-top-menu background-blue">
+            <img src="images/woerma.png">
+            <dt>沃尔玛电子礼品卡</dt>
+            <dt>有效期至: <span>2017年06月30日</span></dt>
+        </a>
+        <dl class="item-bottom-menu">
+            <dt class="left">余额: <span>¥50.00</span></dt>
+            <a class="right" href="{:url('couponorder/tradetail')}">查询交易明细<i class="glyphicon glyphicon-chevron-right"></i></a>
+        </dl>
+    </li>
+
+    <li>
+        <a href="{:url('couponorder/info')}" class="item-top-menu background-deepblue">
+            <img src="images/shijilianhua.png">
+            <dt>世纪联华电子礼品卡</dt>
+            <dt>有效期至: <span>2017年06月30日</span></dt>
+        </a>
+        <dl class="item-bottom-menu">
+            <dt class="left">余额: <span>¥50.00</span></dt>
+            <a class="right" href="{:url('couponorder/tradetail')}">查询交易明细<i class="glyphicon glyphicon-chevron-right"></i></a>
+        </dl>
+    </li>
+
+    <li>
+        <a href="{:url('couponorder/info')}" class="item-top-menu background-gray">
+            <img src="images/shijilianhua.png">
+            <dt>沃尔玛电子礼品卡</dt>
+            <dt>有效期至: <span>2017年06月30日</span></dt>
+        </a>
+        <dl class="item-bottom-menu">
+            <dt class="left">余额: <span class="disabled">¥50.00</span></dt>
+            <a class="right" href="{:url('couponorder/tradetail')}">查询交易明细<i class="glyphicon glyphicon-chevron-right"></i></a>
+        </dl>
+    </li>
+    -->

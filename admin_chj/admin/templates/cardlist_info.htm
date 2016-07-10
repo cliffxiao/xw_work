@@ -1,0 +1,45 @@
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+<form method="POST" action="" name="listForm">
+  <!-- start card list -->
+  <div class="list-div" id="listDiv">
+    {/if}
+
+    <table cellpadding="3" cellspacing="1">
+      <tr>
+        <th>{$lang.card_id}</th>
+        <th>{$lang.card_name}</th>
+        <th>{$lang.card_price}</th>
+        <th>{$lang.card_end_date}</th>
+        <th>{$lang.card_is_act}</th>
+      </tr>
+      {foreach from=$card_list item=card}
+      <tr>
+        <td align="center"><span>{$card.card_id}</span></td>
+        <td align="center"><span>{$card.goods_name}</span></td>
+        <td align="center">￥{$card.market_price} |  ￥{$card.goods_price}</td>
+        <td align="center">{$card.end_date}</td>
+        <td align="center">{$card.status_name}</td>
+      </tr>
+      {foreachelse}
+      <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+      {/foreach}
+    </table>
+
+    <table cellpadding="4" cellspacing="0">
+      <tr>
+        <td align="right">{include file="page.htm"}</td>
+      </tr>
+    </table>
+
+    {if $full_page}
+  </div>
+  <!-- end card_list list -->
+</form>
+
+{/literal}
+
+{include file="pagefooter.htm"}
+{/if}

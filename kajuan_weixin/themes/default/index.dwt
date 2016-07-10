@@ -1,0 +1,197 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con home">
+
+    <!-- 首页List[2]导航 -->
+    <div class="top-index">
+
+        <div class="index-gps">
+            <a href="{:url('index/citylist')}">
+                <i class="glyphicon glyphicon-map-marker"></i>
+                <span>上海</span>
+            </a>
+        </div>
+
+        <br/>
+
+        <ul>
+            <li class="top-index-l" onclick="window.location.href= '{:url('couponorder/index')}'">
+                <i>
+                    <img src="themes/default/images/coupon_top.png">
+                </i>
+                <p class="text-center">
+                    <strong>{$card_total.count}</strong>&nbsp;张卡&nbsp;
+                    <strong>{$card_total.amount}</strong>&nbsp;元
+                </p>
+            </li>
+            <li class="top-index-r" onclick="window.location.href= '{:url('couponorder/index', array('pay_info'=>'1'))}'">
+                <i>
+                    <img src="themes/default/images/pay_top.png">
+                </i>
+                <p class="text-center" >
+                    付款
+                </p>
+            </li>
+        </ul>
+
+    </div>
+
+    <!--首页List[4]导航-->
+    <nav class="container-fluid">
+
+        <ul class="row ect-row-nav">
+
+            <li class="col-sm-3 col-xs-3" onclick="window.location.href= '{:url('coupon/index')}'">
+                <i>
+                    <img src="themes/default/images/nav/nav_1.png">
+                    <p class="text-center">购卡</p>
+                </i>
+            </li>
+
+            <li class="col-sm-3 col-xs-3" onclick="indicator.show('敬请期待!');">
+                <i>
+                    <img src="themes/default/images/nav/nav_2.png">
+                    <p class="text-center">转赠</p>
+                </i>
+            </li>
+
+            <li class="col-sm-3 col-xs-3" onclick="indicator.show('敬请期待!');">
+                <i>
+                    <img src="themes/default/images/nav/nav_3.png">
+                    <p class="text-center">退卡</p>
+                </i>
+            </li>
+
+            <li class="col-sm-3 col-xs-3" onclick="window.location.href= '{:url('couponorder/tecrule')}'">
+                <i>
+                    <img src="themes/default/images/nav/nav_4.png">
+                    <p class="text-center">章程</p>
+                </i>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <!-- 间隔 -->
+    <div class="indexseperator"></div>
+
+    <!-- 广告轮播 -->
+    <div id="focus" class="focus">
+
+        <div class="hd">
+            <ul></ul>
+        </div>
+
+        <div class="bd">
+            {insert name='ads' id=1 num=3}
+        </div>
+
+    </div>
+
+    <!-- 间隔 -->
+    <div class="indexseperator"></div>
+
+    <!-- 推荐商户 -->
+    <div class="index_rec_brand">
+
+        <div>
+            推荐商户
+        </div>
+
+        <ul>
+            <li>
+                <a href="{:url('coupon/info')}&id=17">
+                    <img src="themes/default/images/rec_brand.png">
+                </a>
+            </li>
+            <li>
+                <a onclick="indicator.show('敬请期待!');">
+                    <img src="themes/default/images/rec_brand2.png">
+                </a>
+            </li>
+            <li>
+                <a onclick="indicator.show('敬请期待!');">
+                    <img src="themes/default/images/rec_brand3.png">
+                </a>
+            </li>
+            <li style="clear: both">
+                <a onclick="indicator.show('敬请期待!');">
+                    <img src="themes/default/images/rec_brand4.png">
+                </a>
+            </li>
+            <li>
+                <a onclick="indicator.show('敬请期待!');">
+                    <img src="themes/default/images/rec_brand5.png">
+                </a>
+            </li>
+            <li>
+                <a onclick="indicator.show('敬请期待!');">
+                    <img src="themes/default/images/rec_brand6.png">
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- ToolBar导航栏 -->
+    <footer>
+        <nav class="ect-nav">
+            <!-- #BeginLibraryItem "/library/page_menu.lbi" --><!-- #EndLibraryItem -->
+        </nav>
+    </footer>
+
+    <div style="padding-bottom:4em;"></div>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+
+<script language="javascript">
+
+    $(document).ready(function(){
+        if(getCookie("curcity")){
+            $(".index-gps span").html(decodeURIComponentEx(getCookie("curcity")));
+        }else{
+            //location.href = "city.php";
+        }
+
+        //设置快捷导航li高度
+        $(".ect-row-nav li").height(window.screen.width / 4.0);
+
+    });
+
+    //Url地址处理
+    function decodeURIComponentEx(uriComponent){
+        if(!uriComponent){
+            return  uriComponent;
+        }
+        var ret;
+        try{
+            ret = decodeURIComponent(uriComponent);
+        }catch(ex){
+            ret = unescape(uriComponent);
+        }
+        return ret;
+    };
+
+    //获取cookie值
+    function getCookie(cookieName){
+        var cookieObj={},
+              cookieSplit=[],
+              // 以分号（;）分组
+              cookieArr=document.cookie.split(";");
+        for(var i=0,len=cookieArr.length;i<len;i++)
+            if(cookieArr[i]) {
+                // 以等号（=）分组
+                cookieSplit=cookieArr[i].split("=");
+                // trim() 是自定义的函数，用来删除字符串两边的空格
+                cookieObj[cookieSplit[0].trim()]=cookieSplit[1].trim();
+            }
+        return cookieObj[cookieName];
+    }
+
+</script>
+
+</body>
+</html>

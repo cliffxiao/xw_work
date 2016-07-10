@@ -1,0 +1,29 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+    <div class="city-location-content">
+        <h1><a href="index.php?m=default&c=index&a=setcity&cityname={$cur_city}">{$cur_city}</a><span> GPS定位</span></h1>
+        <br/>
+        <!-- 列表点击显示子菜单模板 [显示/隐藏 区别在于li标签的class:category-select] -->
+        <div class="panel panel-default ect-category-all ect-border-radius0">
+            <ul>
+            	<!--{foreach from=$city_list item=province}-->
+                <li class="">
+                    <div class="media panel-body">
+                        <div class="pull-left ect-category-right">
+                            <h3>{$province.region_name}</h3>
+                        </div>
+                        <i class="fa fa-angle-down ect-transition05"></i>
+                    </div>
+                    <!--{foreach from=$province.region_city item=city}-->
+                    <div class="ect-category-child">
+                        <a href="index.php?m=default&c=index&a=setcity&cityname={$city.region_name}">{$city.region_name}</a>
+                    </div>
+                    <!--{/foreach}-->
+                </li>
+                <hr/>
+                <!--{/foreach}-->
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->

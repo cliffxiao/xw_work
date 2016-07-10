@@ -1,0 +1,31 @@
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<div class="con">
+
+    <div class="coupon-instruction">
+
+        <h3>礼品卡使用说明</h3>
+
+        <hr/>
+
+        <div>
+            <h4>使用说明</h4>
+            <p>在线下门店消费时,请出示电子卡付款码,通过机具扫码即可完成便捷支付。</p>
+        </div>
+
+        <div>
+            <h4>有效日期</h4>
+            <p>2016.06.06 - 2017.06.07</p>
+        </div>
+
+        <div>
+            <h4>安全提醒</h4>
+            <p>本卡不记名,不挂失,支付码每次进入都会更新.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->

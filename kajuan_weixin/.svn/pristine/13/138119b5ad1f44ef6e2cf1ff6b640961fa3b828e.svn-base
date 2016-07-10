@@ -1,0 +1,9 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con order_success"> 
+<p><img src="images/order_success.png" /></p>
+<p class="order_success_t">购卡成功</p>
+<p>您获得&nbsp;{$order.number}&nbsp;张面值&nbsp;{$order.price}&nbsp;的礼品卡，可在卡包中查看使用</p>
+<div onclick="location.href='index.php?m=default&c=couponorder&a=index{if $is_active==0}&status=2{/if}';">查看礼品卡</div>
+</div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body></html>

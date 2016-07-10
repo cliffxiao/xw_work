@@ -1,0 +1,62 @@
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<div class="con">
+
+    <!-- Tab切换卡 -->
+    <div class="coupon-packet-tab text-center">
+        <div>
+            <a {if $status == 1}class="tab-active"{/if} href="{:url('couponorder/index', array('status'=>1))}">有效</a>
+            <a {if $status == 2}class="tab-active"{/if} href="{:url('couponorder/index', array('status'=>2))}">待激活</a>
+            <a {if $status == 3}class="tab-active"{/if} href="{:url('couponorder/index', array('status'=>3))}">已转赠</a>
+            <a {if $status == 4}class="tab-active"{/if} href="{:url('couponorder/index', array('status'=>4))}">已用完</a>
+            <a {if $status == 5}class="tab-active"{/if} href="{:url('couponorder/index', array('status'=>5))}">已过期</a>
+        </div>
+    </div>
+
+    <!-- 券包列表模块 -->
+    <div class="coupon-packet-list ect-margin-bottom0 ect-border-bottom0">
+
+        <ul>
+            {if $card_list && $status == 2}
+            <p>若24小时内未激活,请联系我们的客服</p>
+            {/if}        
+            <!-- #BeginLibraryItem "/coupon_order_list_ajax.dwt" --><!-- #EndLibraryItem -->
+        </ul>
+
+    </div>
+
+
+    <footer>
+        <nav class="ect-nav">
+            <!-- #BeginLibraryItem "/library/page_menu.lbi" --><!-- #EndLibraryItem -->
+        </nav>
+    </footer>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+$(document).ready(function(){
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() >= ($(document).height() - $(window).height())) {
+            $("#page_next").trigger("click");
+        }
+    });
+
+    $('.coupon-packet-list ul').on("click", "#page_next", function(){
+      //progress.show();
+      var url = $(this).val();
+      if(url == ''){
+        //indicator.show("没有数据了。");
+        return false;
+      }
+      $("input").remove("#page_next");
+      $.get(url, '', function (data) {
+        $(".coupon-packet-list ul").append(data);
+      }, "html");
+      return false;   
+    });       
+});
+</script>

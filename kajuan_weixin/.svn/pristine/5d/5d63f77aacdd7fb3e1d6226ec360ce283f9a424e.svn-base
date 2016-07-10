@@ -1,0 +1,41 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<div class="con">
+
+    <div class="coupon-tradetail">
+
+        <h3>支出 {$card_total.count} 笔,共 {:price_format($this->_var['card_total']['txn_at'], false)} </h3>
+        <!--{foreach from=$card_details key=cards item=details}--> 
+        <!--{foreach from=$details key=card item=detail}-->
+        <div class="coupon-tradetail-list-header">{if $cards != date('Y')}{$cards}年{/if}{if $cards == date('Y') && $card == date('m')}本{else}{$card}{/if}月</div>
+        <div class="coupon-tradetail-list">
+            <!--{foreach from=$detail key=key item=value}-->
+            <div class="coupon-tradetail-list-item">
+                <h4>
+                    {$value.mer_nm}<br/>
+                    <p>{$value.txn_dt}</p>
+                </h4>
+                <h5>{$value.txn_at_type}</h5>
+            </div>
+            <hr/>
+            <!--{/foreach}-->
+        </div>
+        <!--{/foreach}-->
+        <!--{/foreach}-->
+        <!--
+        <div class="coupon-tradetail-list-header">5 月</div>
+        <div class="coupon-tradetail-list">
+            <div class="coupon-tradetail-list-item">
+                <h4>
+                    沃尔玛大华店购物消费<br/>
+                    <p>2016-05-08 13:00</p>
+                </h4>
+                <h5>- 490</h5>
+            </div>
+        </div>
+        -->
+    </div>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->

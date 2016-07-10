@@ -1,0 +1,57 @@
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<div class="con">
+
+    <!-- 顶部菜单 -->
+    <div class="coupon-detail-header">
+
+        <img src="themes/default/images/coupon_detail_index.png" />
+        <span>{:implode(' ', str_split($this->_var['card_info']['card_sn'], 4))}</span>
+
+        <h4>余额</h4>
+        <h3>
+            {if $card_info.is_act == 1}{:price_format($this->_var['card_info']['card_balance'], false)}{else}{:price_format($this->_var['card_info']['card_amount'], false)}{/if}
+        </h3>
+        {if $card_info.is_act == 1}
+        <a href="{:url('couponorder/pay', array('id'=>$this->_var['card_info']['card_id']))}">付款</a>
+        {else}
+        <a class="disabled" href="javascript:void(0);">付款</a>
+        {/if}
+        <h5>点击打开付款码</h5>
+
+    </div>
+
+    <!-- 列表 -->
+    <div class="coupon-detail-table">
+        <ul>
+            <li onclick="indicator.show('敬请期待!');">
+                <span>转赠好友</span>
+                <img src="images/arrow-right.png">
+            </li>
+            <li onclick="window.location.href= '{:url('couponorder/tradetail', array('id'=>$this->_var['card_info']['card_id']))}'">
+                <span>交易明细</span>
+                <img src="images/arrow-right.png">
+            </li>
+            <li onclick="window.location.href= '{:url('couponorder/instructions')}'">
+                <span>使用说明</span>
+                <img src="images/arrow-right.png">
+            </li>
+        </ul>
+    </div>
+
+    <!-- 地图标题 -->
+    <div class="coupon-detail-location">
+        <i class="glyphicon glyphicon-map-marker"></i><span id="UserLocationCity"><span class="gifloading"></span></span>
+        <p>您当前所在城市可消费门店<span id="SearchResultNumber"> <span class="gifloading"></span> </span>家</p>
+    </div>
+
+    <!-- 地图模块 -->
+    <div id="couponmap"></div>
+
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=yb34TWMlGs3H0vsyL0OppdzjbRR1Mxz3"></script>
+    <script type="text/javascript" src="__TPL__/js/coupon_order_detail.js"></script>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->

@@ -1,0 +1,83 @@
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<div class="con">
+
+    <ul class="nav nav-tabs text-center user-order-tab">
+        <li class="col-xs-4 {if $status == 1}active{/if}"><a href="#one" role="tab" data-toggle="tab">待付款</a></li>
+        <li class="col-xs-4 {if $status == 2}active{/if}"><a href="#two" role="tab" data-toggle="tab">已关闭</a></li>
+        <li class="col-xs-4 {if $status == 3}active{/if}"><a href="#three" role="tab" data-toggle="tab">全部订单</a></li>
+    </ul>
+
+    <!-- 待付款订单列表 -->
+    <div class="user-order-content">
+
+        <ul class="user-order-list">
+            <!-- #BeginLibraryItem "/user_order_list_ajax.dwt" --><!-- #EndLibraryItem -->
+        </ul>
+
+    </div>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('li.col-xs-4 a').click(function(){
+        var href = $(this).attr('href');
+        var url = '';
+
+        $('body,html').animate({scrollTop: 0}, 200);
+
+        if(href == "#one"){
+            url = "{:url('usercenter/order', array('status'=>1))}";
+            $("div.user-order-list-header").show();
+        }else if(href == "#two"){
+            url = "{:url('usercenter/order', array('status'=>2))}";
+            $("div.user-order-list-header").hide();
+        }else if(href == "#three"){
+            url = "{:url('usercenter/order', array('status'=>3))}";
+            $("div.user-order-list-header").hide();
+        }
+        //progress.show();
+        $.get(url, '', function (data) {
+            $(".user-order-list").html(data);
+           // progres.hide();
+        }, "html");
+    });
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() >= ($(document).height() - $(window).height())) {
+            $("#page_next").trigger("click");
+        }
+    });
+
+	$('.user-order-list').on("click", "#page_next", function(){
+	  //progress.show();
+	  var url = $(this).val();  
+      if(url == ''){
+        //indicator.show("您没有订单了");
+        return false;
+      }   
+      $("input").remove("#page_next");   
+	  $.get(url, '', function (data) {
+        $(".user-order-list").append(data);
+        //progress.hide();
+      }, "html");
+	  return false;  
+	});
+      
+});
+    function cancel_order(orderid){
+        var url = "{:url('usercenter/cancel_order')}";
+        $.get(url, {order_id:orderid}, function (data) {
+            if(data.result == 1){
+                indicator.show(data.msg);
+                window.location.reload();
+            }else{
+                indicator.show(data.msg);
+            }
+        }, "json");
+    } 
+</script>

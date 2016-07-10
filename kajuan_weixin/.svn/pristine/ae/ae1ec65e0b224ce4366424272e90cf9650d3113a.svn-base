@@ -1,0 +1,56 @@
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<div class="con">
+
+    <!-- Tab切换卡 -->
+    <div class="coupon-header">
+        您共有 <span>{$balane_total.count}</span> 张有效电子卡，共 <span>{$balane_total.amount}</span> 元
+    </div>
+
+    <!-- 券包列表模块 -->
+    <div class="coupon-packet-list ect-margin-bottom0 ect-border-bottom0">
+
+        <ul>
+            <!-- #BeginLibraryItem "/coupon_order_list_ajax.dwt" --><!-- #EndLibraryItem -->
+        </ul>
+
+    </div>
+
+    {if $balane_total.count != 0}
+    <div class="coupon-footer">
+        <a href="{:url('coupon/index')}">开始购卡</a>
+    </div>
+    {/if}
+
+</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() >= ($(document).height() - $(window).height())) {
+                $("#page_next").trigger("click");
+            }
+        });
+
+        $('.coupon-packet-list ul').on("click", "#page_next", function(){
+          //progress.show();
+          var url = $(this).val();
+          if(url == ''){
+            indicator.show("没有数据了。");
+            return false;
+          }
+          $("input").remove("#page_next");
+          $.get(url, '', success, "html");
+          return false;
+          function success(data){
+            $(".coupon-packet-list ul").append(data);
+            //progress.hide();
+          }
+        });
+    });
+
+</script>

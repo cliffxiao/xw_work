@@ -1,0 +1,58 @@
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<div class="con">
+
+    <div class="user-header">
+
+        <div class="user-header-portaint">
+
+            <img src="{$wechat_info.headimgurl}">
+            <p>{$wechat_info.nickname}</p>
+
+        </div>
+
+        <div class="user-header-menu">
+
+            <a href="{:url('usercenter/order')}">
+                <img src="images/icon-obligation.png">
+                <p>待付款</p>
+            </a>
+            <a href="{:url('usercenter/order', array('status'=>3))}">
+                <img src="images/icon-order.png">
+                <p>全部订单</p>
+            </a>
+
+        </div>
+
+    </div>
+
+    <br/>
+
+    <ul class="user-content-list">
+
+        <li onclick="indicator.show('敬请期待!');">
+            <img src="images/icon-gift.png">
+            <span>我赠送的卡</span>
+            <img src="images/arrow-right.png">
+        </li>
+
+        <hr/>
+
+        <li onclick="indicator.show('敬请期待!');">
+            <img src="images/icon-retreat.png">
+            <span>退卡管理</span>
+            <img src="images/arrow-right.png">
+        </li>
+
+    </ul>
+
+    <footer>
+        <nav class="ect-nav">
+            <!-- #BeginLibraryItem "/library/page_menu.lbi" --><!-- #EndLibraryItem -->
+        </nav>
+    </footer>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->

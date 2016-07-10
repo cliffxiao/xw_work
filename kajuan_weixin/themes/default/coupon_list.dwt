@@ -1,0 +1,147 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con"> 
+
+    <!-- 定位 -->
+    <div class="coupon-topcity">
+
+        <a href="{:url('index/citylist')}">
+
+            <div>
+                <span>上海</span>
+                <img src="images/arrow-down.png">
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- 快捷导航 -->
+    <div class="coupon-navlist">
+
+        <ul>
+
+            <li class="col-sm-3 col-xs-3" onclick="indicator.show('敬请期待!');">
+                <div>
+                    <img src="data/attached/nav/coupon_1.png" >
+                    <span class="text-center">连锁超市</span>
+                </div>
+            </li>
+
+            <li class="col-sm-3 col-xs-3" onclick="indicator.show('敬请期待!');">
+                <div>
+                    <img src="data/attached/nav/coupon_2.png" >
+                    <span class="text-center">百货商城</span>
+                </div>
+            </li>
+
+            <li class="col-sm-3 col-xs-3" onclick="indicator.show('敬请期待!');">
+                <div>
+                    <img src="data/attached/nav/coupon_3.png" >
+                    <span class="text-center">休闲娱乐</span>
+                </div>
+            </li>
+
+            <li class="col-sm-3 col-xs-3 selected">
+                <div>
+                    <img src="data/attached/nav/coupon_4.png" >
+                    <span class="text-center">其他</span>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div style="clear:both;height:1em;">
+    </div>
+
+    <!-- 卡券列表 -->
+    <div class="coupon-list">
+
+        <div class="coupon-list-t">购买卡券</div>
+
+        <ul>
+
+            <!--{foreach from=$cat_list.cat_id item=cat name=no}-->
+            <li onclick="window.location.href= '{:url('coupon/info', array('id'=>$this->_var['cat']['id']))}' ">
+
+                <div class="coupon-list-img">
+                    <img src="{$cat.cat_image}">
+                </div>
+
+                <div class="coupon-list-con">
+                    <p>{$cat.cat_name}</p>
+                    <p class="red">{:price_format($this->_var['cat']['market_price']['min'])}-{:price_format($this->_var['cat']['market_price']['max'])}面额</p>
+                    <p>[全国通用]</p>
+                </div>
+
+                <img class="coupon-list-icon" src="images/arrow-circle-right.png">
+
+            </li>
+            <!--{/foreach}-->
+
+        </ul>
+
+    </div>
+
+    <footer>
+        <nav class="ect-nav"><!-- #BeginLibraryItem "/library/page_menu.lbi" --><!-- #EndLibraryItem --></nav>
+    </footer>
+
+    <div style="padding-bottom:4.2em;">
+    </div>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+
+<script language="javascript">
+
+    $(document).ready(function(){
+
+        if(getCookie("curcity")){
+            $(".coupon-topcity span").html(decodeURIComponentEx(getCookie("curcity")));
+        }else{
+            //location.href = "city.php";
+        }
+
+        //设置快捷导航li高度
+        $(".coupon-navlist li").height(window.screen.width * 0.96 * 0.24);
+        //设置快捷导航li左边距
+        $(".coupon-navlist li").css("margin-left", window.screen.width * 0.96 * 0.01334 + "px");
+
+    });
+
+    function decodeURIComponentEx(uriComponent){
+        if(!uriComponent){
+            return  uriComponent;
+        }
+        var ret;
+        try{
+            ret = decodeURIComponent(uriComponent);
+        }catch(ex){
+            ret = unescape(uriComponent);
+        }
+        return ret;
+    };
+
+    function getCookie(cookieName){
+        var cookieObj={},
+              cookieSplit=[],
+              // 以分号（;）分组
+              cookieArr=document.cookie.split(";");
+        for(var i=0,len=cookieArr.length;i<len;i++)
+            if(cookieArr[i]) {
+                // 以等号（=）分组
+                cookieSplit=cookieArr[i].split("=");
+                // trim() 是自定义的函数，用来删除字符串两边的空格
+                cookieObj[cookieSplit[0].trim()]=cookieSplit[1].trim();
+            }
+        return cookieObj[cookieName];
+    }
+
+    </script>
+
+</body>
+</html>

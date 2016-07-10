@@ -1,0 +1,36 @@
+
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<div class="con">
+
+    <div class="coupon-payres-header">
+        <img src="images/icon-success.png">
+        <h3>支付成功</h3>
+    </div>
+
+    <div class="coupon-payres-content">
+
+        <h4>{:price_format($this->_var['card_detail']['pay_account'], false)}</h4>
+
+        <hr/>
+
+        <div>
+            <h5>门店</h5>
+            <p>{$card_detail.pay_type}</p>
+        </div>
+
+        <div>
+            <h5>交易时间</h5>
+            <p>{:date('Y-m-d H:i', $this->_var['card_detail']['pay_time'])}</p>
+        </div>
+
+        <div>
+            <h5>当前状态</h5>
+            <p>支付成功</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
